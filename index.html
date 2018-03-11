@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+	<style>
+		.bg .dustbin{
+			margin-left: 18px;
+			background-image: url(img/clear_0.png);
+			width: 80px;
+			height:80px;
+			
+		}
+		.bg .active{
+			animation: action 0.1s 1 linear;
+			background-image: url(img/clear_5.png);
+		}
+		@-webkit-keyframes action{
+			20%{background-image: url(img/clear_1.png);}
+			40%{background-image: url(img/clear_2.png);}
+			60%{background-image: url(img/clear_3.png);}
+			80%{background-image: url(img/clear_4.png);}
+			100%{background-image: url(img/clear_5.png);}
+			
+		}
+		.bg .delete{
+			animation: delete 1s 1 linear;
+		}
+		@-webkit-keyframes delete{
+			1%{background-image: url(img/clear_5.png);}
+			2%{background-image: url(img/clear_4.png);}
+			3%{background-image: url(img/clear_3.png);}
+			4%{background-image: url(img/clear_2.png);}
+			5%{background-image: url(img/clear_1.png);}
+			10%{background-image: url(img/clear_left_shake.png);}
+			30%{background-image: url(img/clear_right_shake.png);}
+			50%{background-image: url(img/clear_left_shake.png);}
+			70%{background-image: url(img/clear_right_shake.png);}
+			100%{background-image: url(img/clear_left_shake.png);}
+		}
+		.bg .icon{
+			list-style: none;
+		}
+		.bg .icon li{
+			width: 70px;
+			height: 70px;
+		
+		}
+		.bg .icon li img{
+			width: 50%;
+			height: 50%;
+		}
+	</style>
+</head>
+<body>
+	<div class="bg">
+		<div class="dustbin" id="dustbin">
+			
+		</div>
+		<ul class="icon">
+			<li draggable="true" ><img src="img/Chrome.svg" alt="" id="img1"/></li>
+			<li draggable="true" ><img src="img/icon_虾米音乐.svg" alt="" id="img2"/></li>
+			<li draggable="true" ><img src="img/淘宝.svg" alt="" id="img3"/></li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		var list = document.querySelectorAll("li");
+		var dragId;
+		
+		for(var i=0;i<list.length;i++){
+			
+		    list[i].ondragstart = function(ev) {
+		        /*拖拽开始*/
+		    	dragId = ev.target.id;
+			
+		        
+		    
+		    };
+		    list[i].ondragend = function(ev) {
+		        /*拖拽结束*/
+		       	
+		    };
+		    
+		}
+		document.getElementById("dustbin").ondragover = function(ev){
+			document.getElementById("dustbin").setAttribute("class","dustbin active")
+			ev.preventDefault();
+			
+		}
+		document.getElementById("dustbin").ondrop = function(ev){
+			document.getElementById("dustbin").setAttribute("class","dustbin delete")
+			document.getElementById(dragId).parentNode.removeChild(document.getElementById(dragId));
+			
+		}
+		
+		
+	</script>
+</body>
+</html>
